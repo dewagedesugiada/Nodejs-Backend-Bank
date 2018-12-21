@@ -5,6 +5,7 @@ const sqlGetById = 'SELECT * FROM account WHERE Account_number = ?';
 const sqlInsert = 'INSERT INTO account SET ?' ;
 const sqlUpdate = 'UPDATE account SET ? WHERE Account_number = ?';
 const sqlDelete = 'DELETE FROM account WHERE Account_number = ?';
+const sqlGetAccountByCust = "SELECT * FROM account WHERE customer_number = ? ";
 
 exports.getById = function getById(id, callback){
     conn.query(sqlGetById, id , function(error, rows){
@@ -53,5 +54,15 @@ exports.deleted = function deleted(id, callback){
             return callback(error);
         }
         callback(null, rows);
+    });
+}
+
+exports.getByIdCust = function getByIdCust(id, callback){
+    conn.query(sqlGetAccountByCust, id , function(error, rows){
+        if(error){
+            console.log(error);
+            return callback(error);
+        }
+        callback(null, rows[0]);
     });
 }

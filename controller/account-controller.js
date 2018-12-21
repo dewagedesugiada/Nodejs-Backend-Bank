@@ -68,3 +68,13 @@ exports.deleteAccount = function(req, res){
         }
     });
 }
+
+exports.getAccountByIdCust = function(req, res){
+    accountDao.getByIdCust(req.params['idcust'], function(err, result){
+        if(err){
+            console.log('error call getByIdCust : '+ err);
+            response.err(err, res);
+        }
+        response.ok(result, res);
+    });
+}

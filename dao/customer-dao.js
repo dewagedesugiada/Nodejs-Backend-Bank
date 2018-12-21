@@ -17,7 +17,41 @@ exports.getById = function getById(id, callback){
 }
 
 exports.getAll = function getAll(callback){
-    conn.query(sqlGetAll, function () {
-        
-    })
+    conn.query(sqlGetAll, function (error, rows) {
+        if(error){
+            console.log(err);
+            return callback(error)
+        }
+        callback(null, rows);
+    });
+};
+
+exports.insert = function insert(data, callback){
+    conn.query(sqlInsert, data, function(error, rows){
+        if(error){
+            console.log(error);
+            return callback(error);
+        }
+        callback(null, rows);
+    });
+};
+
+exports.update = function update(id, data, callback){
+    conn.query(sqlUpdate, [data, id], function(error, rows){
+        if(error){
+            console.log(error);
+            return callback(error);
+        }
+        callback(null, rows);
+    });
+};
+
+exports.deleted = function deleted(id, callback){
+    conn.query(sqlDel,id, (error, rows) => {
+        if(error){
+            console.log(error);
+            return callback(error);
+        }
+        callback(null, rows);
+    });
 }

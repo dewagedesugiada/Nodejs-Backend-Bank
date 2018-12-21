@@ -7,4 +7,6 @@ module.exports = function(app){
     app.route('/account').post(controller.insertAccount);
     app.route('/account').put(controller.updateAccount);
     app.route('/account/:id').delete(controller.deleteAccount);
+    app.route('/accountCust/:idcust').get(controller.getAccountByIdCust);
+
 }
