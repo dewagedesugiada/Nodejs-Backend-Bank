@@ -1,8 +1,9 @@
 const {Account, Customer} = require('../db/conn-sequelize');
 var logger = require('winston');
 
-exports.getAll = function getAll(callback) {
+exports.getAll = function getAll(whereClause, callback) {
     Account.findAll({
+        where : whereClause,
         include:[Customer]
     })
     .then((accounts) => {
@@ -28,9 +29,16 @@ exports.getById = function getById(id, callback){
 }
 
 exports.insert = function insert(data, callback) {
-    Account.create(data,{
-        include : [Customer]
-    })
+    let account = data;
+    if(account.customer==null && account.customerNumber==null){
+        res.json('customer kosong');
+    }else{
+        if(account.customerNumber==null){
+            account.customerNumber = account.customer.customerNumber;
+        }
+    }
+    
+    Account.create(account)
     .then(account => {
 
         return callback(null, account);

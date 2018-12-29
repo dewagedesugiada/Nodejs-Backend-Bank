@@ -1,7 +1,5 @@
 
 var response = require('../model/res');
-var connection = require('../db/con');
-var util = require ('util');
 
 const sqlgetById = "SELECT * FROM customer WHERE customer_number = ?" 
 const sqlUpdate = 'UPDATE customer set ? WHERE customer_number = ? ' ;
@@ -14,7 +12,7 @@ exports.customer = function(req, res) {
             response.ok(rows, res)
         }
     });
-};
+}
 
 function getById(id, callback) {
     connection.query(sqlgetById, id, function (error, rows){
@@ -24,7 +22,7 @@ function getById(id, callback) {
         } 
         callback(null, rows[0]);
     });
-};
+}
 
 
 exports.index = function(req, res) {
@@ -69,10 +67,14 @@ exports.getCustomerGetbyId = function (req,res){
 
     const sql ="SELECT * FROM customer WHERE customer_number= ?" ;
     connection.query(sql, req.params['id'], (err, result) =>{
-        if(!err)
-        response.ok(result, res);
-        else
-        console.log(err) ;
+        if(!err){
+
+            response.ok(result, res);
+        }
+        else{
+
+            console.log(err) ;
+        }
         } )
 }
 
@@ -91,5 +93,5 @@ exports.updateCustomer = function(req, res) {
         }
     });
 
-};
+}
 

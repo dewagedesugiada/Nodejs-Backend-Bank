@@ -34,7 +34,7 @@ exports.insert = function insert(data, callback){
     });
 }
 
-exports.update = function update (data, callback){
+exports.update = function update (id,data, callback){
     Customer.update(data,{
         where : {customerNumber : data.customerNumber},
         returning : true,
